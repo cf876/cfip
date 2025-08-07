@@ -19,6 +19,8 @@ ip_pattern = r'\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b'
 # 检查ip.txt文件是否存在,如果存在则删除它
 if os.path.exists('ip.txt'):
     os.remove('ip.txt')
+if os.path.exists('ip20.txt'):
+    os.remove('ip20.txt')
 
 # 使用集合存储IP地址实现自动去重
 unique_ips = set()
