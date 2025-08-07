@@ -47,7 +47,18 @@ if unique_ips:
     
     with open('ip.txt', 'w') as file:
         for ip in sorted_ips:
-            file.write(ip + '\n')
+            # 查询IP的地理位置
+            try:
+                response = requests.get(f'http://ip-api.com/json/{ip}')
+                if response.status_code == 200:
+                    data = response.json()
+                    country = data.get('countryCode', 'Unknown')
+                    file.write(f"{ip}#{country}\n")
+                else:
+                    file.write(f"{ip}#Unknown\n")
+            except requests.exceptions.RequestException as e:
+                print(f'查询IP {ip}的地理位置失败: {e}')
+                file.write(f"{ip}#Unknown\n")
     print(f'已保存 {len(sorted_ips)} 个唯一IP地址到ip.txt文件。')
 else:
     print('未找到有效的IP地址。')
