@@ -1,6 +1,6 @@
 104.16.33.7#Unknown
 104.16.106.198#Unknown
-104.16.143.109#Unknown
+104.16.141.180#Unknown
 104.16.240.35#Unknown
 104.16.240.47#Unknown
 104.16.240.57#Unknown
@@ -158,9 +158,10 @@
 104.17.220.251#Unknown
 104.17.221.181#Unknown
 104.17.223.37#Unknown
+104.18.15.235#Unknown
+104.18.29.50#Unknown
 104.18.30.88#Unknown
-104.18.36.182#Unknown
-104.18.37.129#Unknown
+104.18.44.34#Unknown
 104.18.80.243#Unknown
 104.18.81.37#Unknown
 104.18.81.170#Unknown
@@ -282,7 +283,6 @@
 104.19.237.187#Unknown
 104.21.205.224#Unknown
 104.25.255.11#Unknown
-104.25.255.99#Unknown
 162.159.152.11#Unknown
 162.159.152.31#Unknown
 162.159.152.53#Unknown
@@ -303,9 +303,9 @@
 162.159.153.216#Unknown
 162.159.153.217#Unknown
 162.159.153.239#Unknown
-172.64.34.218#Unknown
-172.64.95.45#Unknown
-172.64.150.157#Unknown
+172.64.68.214#Unknown
+172.64.93.173#Unknown
+172.66.3.2#Unknown
 172.67.173.8#Unknown
 198.41.208.23#Unknown
 198.41.208.53#Unknown
