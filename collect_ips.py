@@ -47,13 +47,14 @@ if unique_ips:
     
     with open('ip.txt', 'w') as file:
         for ip in sorted_ips:
+            # 查询IP的地理位置
+            try:
+                response = requests.get(f'http://ip-api.com/json/{ip}')
                 # 在每次查询后等待2秒，避免被屏蔽
                 time.sleep(2)
-
-                response = requests.get(f'https://api.ipgeolocation.io/ipgeo?apiKey=YOUR_API_KEY&ip={ip}')
                 if response.status_code == 200:
                     data = response.json()
-                    country = data.get('country_code2', 'Unknown')
+                    country = data.get('countryCode', 'Unknown')
                     file.write(f"{ip}#{country}\n")
                 else:
                     file.write(f"{ip}#Unknown\n")
