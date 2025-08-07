@@ -47,17 +47,19 @@ if unique_ips:
     
     with open('ip.txt', 'w') as file:
         for ip in sorted_ips:
-            # 查询IP的地理位置
-            try:
-                response = requests.get(f'https://api.ipgeolocation.io/ipgeo?apiKey=YOUR_API_KEY&ip={ip}')
+                # 在每次查询后等待2秒，避免被屏蔽
+                time.sleep(2)
+                
                 if response.status_code == 200:
                     data = response.json()
-                    country = data.get('country_code2', 'Unknown')
+                    country = data.get('countryCode', 'Unknown')
                     file.write(f"{ip}#{country}\n")
+                    print(f'成功获取 {ip} 的地理位置: {country}')
                 else:
+                    print(f'查询 {ip} 失败，状态码: {response.status_code}')
                     file.write(f"{ip}#Unknown\n")
             except requests.exceptions.RequestException as e:
-                print(f'查询IP {ip}的地理位置失败: {e}')
+                print(f'查询 {ip} 时发生错误: {e}')
                 file.write(f"{ip}#Unknown\n")
     print(f'已保存 {len(sorted_ips)} 个唯一IP地址到ip.txt文件。')
 else:
