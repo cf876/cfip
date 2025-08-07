@@ -50,7 +50,7 @@ if unique_ips:
             # 查询IP的地理位置
             try:
                 response = requests.get(f'http://ip-api.com/json/{ip}')
-                if response.status_code == 200:
+                if response.status_code == 500:
                     data = response.json()
                     country = data.get('countryCode', 'Unknown')
                     file.write(f"{ip}#{country}\n")
