@@ -49,10 +49,10 @@ if unique_ips:
         for ip in sorted_ips:
             # 查询IP的地理位置
             try:
-                response = requests.get(f'http://ip-api.com/json/{ip}')
-                if response.status_code == 500:
+                response = requests.get(f'https://api.ipgeolocation.io/ipgeo?apiKey=YOUR_API_KEY&ip={ip}')
+                if response.status_code == 200:
                     data = response.json()
-                    country = data.get('countryCode', 'Unknown')
+                    country = data.get('country_code2', 'Unknown')
                     file.write(f"{ip}#{country}\n")
                 else:
                     file.write(f"{ip}#Unknown\n")
