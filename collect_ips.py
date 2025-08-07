@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import re
 import os
 import time
+import random
 
 # 目标URL列表
 urls = [
@@ -63,5 +64,23 @@ if unique_ips:
                 print(f'查询IP {ip}的地理位置失败: {e}')
                 file.write(f"{ip}#Unknown\n")
     print(f'已保存 {len(sorted_ips)} 个唯一IP地址到ip.txt文件。')
+    
+    # 随机选择20个IP并写入ip20.txt
+    if len(unique_ips) >= 20:
+        selected_ips = random.sample(list(unique_ips), 20)
+        with open('ip20.txt', 'w') as file:
+            for ip in selected_ips:
+                # 从ip.txt中提取位置信息
+                with open('ip.txt', 'r') as ip_file:
+                    lines = ip_file.readlines()
+                    for line in lines:
+                        if line.startswith(ip):
+                            parts = line.strip().split('#')
+                            country = parts[1] if len(parts) > 1 else 'Unknown'
+                            file.write(f"{ip}#{country}\n")
+                            break
+        print(f'已随机选取20个IP并保存到ip20.txt文件。')
+    else:
+        print(f'唯一IP地址数量少于20个，无法选取20个IP。')
 else:
     print('未找到有效的IP地址。')
