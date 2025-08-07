@@ -10,9 +10,6 @@ urls = [
     'https://www.wetest.vip/page/cloudflare/address_v4.html'
 ]
 
-# IP查询API的URL（使用ip-api作为示例）
-ip_lookup_url = "http://ip-api.com/json/{ip}"
-
 # 正则表达式用于匹配IP地址
 ip_pattern = r'\b(?:[1]{1,3}\.){3}[1]{1,3}\b'
 
@@ -41,6 +38,9 @@ for url in urls:
     except requests.exceptions.RequestException as e:
         print(f'请求 {url} 失败: {e}')
         continue
+
+# IP查询API的URL（使用ip-api作为示例）
+ip_lookup_url = "http://ip-api.com/json/{ip}"
 
 # 定义一个函数，用于查询IP的地理位置信息
 def query_ip_location(ip):
