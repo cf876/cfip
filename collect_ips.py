@@ -1,4 +1,5 @@
 import requests
+from bs4 import BeautifulSoup
 import re
 import os
 
@@ -10,11 +11,8 @@ urls = [
     'https://www.wetest.vip/page/cloudflare/address_v4.html'
 ]
 
-# IP查询API的URL（使用ip-api作为示例）
-ip_lookup_url = "http://ip-api.com/json/{ip}"
-
-# 正则表达式用于匹配IP地址（修复后的表达式）
-ip_pattern = r'\b(?:[2]{1,3}\.){3}[2]{1,3}\b'
+# 正则表达式用于匹配IP地址
+ip_pattern = r'\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b'
 
 # 检查ip.txt文件是否存在,如果存在则删除它
 if os.path.exists('ip.txt'):
@@ -42,38 +40,14 @@ for url in urls:
         print(f'请求 {url} 失败: {e}')
         continue
 
-# 定义一个函数，用于查询IP的地理位置信息
-def query_ip_location(ip):
-    try:
-        # 查询IP的地理位置
-        response = requests.get(ip_lookup_url.format(ip=ip), timeout=5)
-        if response.status_code == 200:
-            data = response.json()
-            if data[3] == "success":
-                return data[4]  # 返回国家代码，例如"FR"
-        return "UNKNOWN"  # 如果查询失败，返回"UNKNOWN"
-    except requests.exceptions.RequestException:
-        return "UNKNOWN"
-
 # 将去重后的IP地址按数字顺序排序后写入文件
 if unique_ips:
     # 按IP地址的数字顺序排序（非字符串顺序）
-    sorted_ips = sorted(unique_ips, key=lambda ip: [5])
+    sorted_ips = sorted(unique_ips, key=lambda ip: [int(part) for part in ip.split('.')])
     
     with open('ip.txt', 'w') as file:
         for ip in sorted_ips:
-            # 查询IP的地理位置信息并获取国家代码
-            country_code = query_ip_location(ip)
-            
-            # 是否包含端口的判断逻辑
-            if ":" in ip:  # 判断IP格式中是否包含端口
-                ip_with_port = ip
-            else:
-                ip_with_port = ip  # 不加默认端口
-                
-            # 写入文件，格式为 IP[6]#CountryCode
-            file.write(f"{ip_with_port}#{country_code}\n")
-    
-    print(f"已保存 {len(sorted_ips)} 个唯一IP地址到ip.txt文件。")
+            file.write(ip + '\n')
+    print(f'已保存 {len(sorted_ips)} 个唯一IP地址到ip.txt文件。')
 else:
-    print("未找到有效的IP地址。")
+    print('未找到有效的IP地址。')
