@@ -64,7 +64,7 @@ if unique_ips:
                     file.write(f"{ip}#Unknown_{ip}\n")
             except requests.exceptions.RequestException as e:
                 print(f'查询IP {ip}的地理位置失败: {e}')
-                file.write(f"{ip}#Unknown_{ip}\n")
+                file.write(f"{ip}#Unknown#{ip}\n")
     print(f'已保存 {len(sorted_ips)} 个唯一IP地址到ip.txt文件。')
     
     # 随机选择20个IP并写入ip20.txt
