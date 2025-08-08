@@ -55,13 +55,13 @@ if unique_ips:
             try:
                 response = requests.get(f'http://ip-api.com/json/{ip}')
                 # 在每次查询后等待2秒，避免被屏蔽
-                time.sleep(2)
+                time.sleep(1)
                 if response.status_code == 200:
                     data = response.json()
                     country = data.get('countryCode', 'Unknown')
-                    file.write(f"{ip}#{country}_{ip}\n")
+                    file.write(f"{ip}#{country}#{ip}\n")
                 else:
-                    file.write(f"{ip}#Unknown_{ip}\n")
+                    file.write(f"{ip}#Unknown#{ip}\n")
             except requests.exceptions.RequestException as e:
                 print(f'查询IP {ip}的地理位置失败: {e}')
                 file.write(f"{ip}#Unknown#{ip}\n")
