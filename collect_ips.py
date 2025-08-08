@@ -79,7 +79,7 @@ if unique_ips:
                         if line.startswith(ip):
                             parts = line.strip().split('#')
                             country = parts[1] if len(parts) > 1 else 'Unknown'
-                            file.write(f"{ip}#{country}_{ip}\n")
+                            file.write(f"{ip}#{country}\n")
                             break
         print(f'已随机选取20个IP并保存到ip20.txt文件。')
     else:
