@@ -1,7 +1,4 @@
-在原版基础上随机选取20个IP生成ip20.txt，增加IP国家代码
 
-
--------------------------------------------------------
 每3小时自动抓取
 ```
 https://www.wetest.vip/page/cloudflare/address_v4.html
