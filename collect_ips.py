@@ -55,7 +55,7 @@ if unique_ips:
             try:
                 response = requests.get(f'http://ip-api.com/json/{ip}')
                 # 在每次查询后等待2秒，避免被屏蔽
-                time.sleep(1)
+                time.sleep(2)
                 if response.status_code == 200:
                     data = response.json()
                     country = data.get('countryCode', 'Unknown')
